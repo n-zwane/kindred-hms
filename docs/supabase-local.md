@@ -36,9 +36,23 @@ Stop stack:
 supabase stop
 ```
 
-## Create dev users
+## Dev login accounts (local only)
 
-In [Supabase Studio](http://127.0.0.1:54323) → Authentication → Users, create users and set **User Metadata** JSON, for example:
+These accounts are for **local development only**. Password for all: `Password123!`
+
+| Role | Email | Notes |
+|------|-------|--------|
+| Patient | `patient@kindred.local` | Linked to seeded patient Alberto Ripley |
+| Receptionist | `receptionist@kindred.local` | Full patient CRUD |
+| Doctor | `doctor@kindred.local` | Linked to seeded Dr. John Smith |
+| Admin | `admin@kindred.local` | Appointments + wards |
+| IT admin | `it@kindred.local` | Users + audit log |
+
+Recreate with Supabase Admin API or Studio if you `supabase db reset` (auth users are wiped on reset unless you add a seed script).
+
+### Manual creation (Studio)
+
+Authentication → Users → Add user, with metadata:
 
 ```json
 { "role": "receptionist", "full_name": "Desk User" }
@@ -46,7 +60,7 @@ In [Supabase Studio](http://127.0.0.1:54323) → Authentication → Users, creat
 
 Allowed `role` values: `patient`, `receptionist`, `doctor`, `admin`, `it_admin`.
 
-Link patient portal users by setting `patients.profile_id` to their `auth.users` id after signup.
+Link patient portal users with `UPDATE patients SET profile_id = '<auth-user-uuid>' WHERE ...`.
 
 ## Migrations
 
