@@ -69,11 +69,19 @@ export function LoginPage() {
               {isSubmitting ? 'Signing in…' : 'Sign in'}
             </Button>
           </form>
-          <p className="text-center text-sm text-gray-500">
-            <Link className="text-primary hover:underline" to="/forgot-password">
-              Forgot password?
-            </Link>
-          </p>
+          <div className="space-y-2 text-center text-sm text-gray-500">
+            <p>
+              <Link className="text-primary hover:underline" to="/forgot-password">
+                Forgot password?
+              </Link>
+            </p>
+            <p>
+              New patient?{' '}
+              <Link className="text-primary hover:underline" to="/signup">
+                Create an account
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

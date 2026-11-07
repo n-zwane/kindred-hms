@@ -36,6 +36,18 @@ Stop stack:
 supabase stop
 ```
 
+## Patient sign-up
+
+Open `/signup` in the web app to register a **patient** account (creates `profiles`, `patients`, and `patient_records` automatically).
+
+After schema changes, run:
+
+```bash
+supabase migration up --local
+```
+
+or `supabase db reset` to re-apply all migrations and seed data.
+
 ## Dev login accounts (local only)
 
 These accounts are for **local development only**. Password for all: `Password123!`

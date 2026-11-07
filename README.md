@@ -34,7 +34,9 @@ npm run build
 npm run test
 ```
 
-Supabase (after Task 3): see [docs/supabase-local.md](./docs/supabase-local.md).
+- Local Supabase: [docs/supabase-local.md](./docs/supabase-local.md)  
+- Hosted / team database: [docs/supabase-hosted.md](./docs/supabase-hosted.md)  
+- Patients: **Sign in** or **Create account** at `/signup`
 
 ## Status
 
