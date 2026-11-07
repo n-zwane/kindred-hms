@@ -4,67 +4,64 @@ One task at a time. Update checkboxes when a task is complete and committed on `
 
 ## Task 1 — Discovery and Git
 
-- [x] Discovery docs (`docs/discovery.md`, `figma-inventory.md`, `architecture.md`)
-- [x] `.gitignore` (includes `Context/`, `Figma/`)
-- [x] `.env.example`, `README.md`
-- [x] Git: `main` baseline, `develop` branch
-- [x] Task 1 report confirmed with stakeholder
+- [x] Discovery docs
+- [x] Git: `main` + `develop`
+- [x] Context/Figma gitignored
 
-## Task 2 — Scaffold (not started)
+## Task 2 — Scaffold
 
-- [ ] Root `package.json` / workspace
-- [ ] `apps/web` Vite + React + TypeScript
-- [ ] README run scripts stub
+- [x] Root workspace + `apps/web` Vite React TS
+- [x] Vitest + RTL setup
 
 ## Task 3 — Supabase local
 
-- [ ] `supabase init`
-- [ ] Docker + `supabase start` documented
-- [ ] Local `.env` (user-provided, not committed)
+- [x] `supabase init`, core migration, seed, `docs/supabase-local.md`
+- [ ] Run `supabase start` + `supabase db reset` on your machine (Docker)
 
 ## Task 4 — Design system and shell
 
-- [ ] Tailwind theme (Kindred tokens)
-- [ ] shadcn/ui init
-- [ ] AppShell + role sidebar scaffold
+- [x] Tailwind (Kindred tokens)
+- [x] shadcn-style UI primitives
+- [x] AppShell + role sidebar
 
 ## Task 5 — Auth and routing
 
-- [ ] Supabase Auth login/logout
-- [ ] Password reset UI
-- [ ] Protected routes + role guard
+- [x] Login, forgot/reset password, Supabase Auth
+- [x] Protected routes + `RoleGate`
 
 ## Task 6 — Database core
 
-- [ ] Migrations: profiles, patients, doctors, appointments
-- [ ] RLS policies per role
+- [x] Migrations: profiles, patients, doctors, appointments, records, Rx, wards, audit
+- [x] RLS policies (review in Supabase Studio after local reset)
 
 ## Task 7 — Patients UI
 
-- [ ] Grid + detail + receptionist CRUD
+- [x] Grid, detail, create dialog
 
 ## Task 8 — Appointments
 
-- [ ] List, booking, status workflow
+- [x] List, create, status updates (staff)
 
 ## Task 9 — Doctors
 
-- [ ] Grid, detail, add doctor (core fields)
+- [x] Grid, detail, add doctor (core fields + schedule)
 
 ## Task 10 — Records and prescriptions
 
-- [ ] Doctor-scoped records + Rx
+- [x] Records editor (doctor)
+- [x] Prescriptions list + create (doctor)
 
 ## Task 11 — Wards
 
-- [ ] Capacity + allocation
+- [x] Ward cards + allocation with capacity trigger
 
 ## Task 12 — Admin and IT
 
-- [ ] Admin dashboard patterns
-- [ ] Users/roles, audit read
+- [x] Role-based dashboards
+- [x] IT users/roles, audit read
 
 ## Task 13 — Hardening
 
-- [ ] Vitest for critical paths
-- [ ] Seed data, README runbook
+- [x] Navigation unit tests
+- [ ] E2E against local Supabase with seeded users
+- [ ] Expanded Vitest for auth forms
