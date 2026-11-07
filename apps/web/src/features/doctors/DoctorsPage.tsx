@@ -6,9 +6,12 @@ import type { Doctor } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import { useAuth } from '@/features/auth/AuthContext'
 import { AddDoctorDrawer } from './AddDoctorDrawer'
 
 export function DoctorsPage() {
+  const { profile } = useAuth()
+  const canAdd = profile?.role === 'receptionist' || profile?.role === 'admin'
   const [doctors, setDoctors] = useState<Doctor[]>([])
   const [open, setOpen] = useState(false)
 
@@ -28,10 +31,12 @@ export function DoctorsPage() {
           <h1 className="text-2xl font-bold">Doctor grid</h1>
           <Badge className="mt-2">Total doctors: {doctors.length}</Badge>
         </div>
-        <Button type="button" onClick={() => setOpen(true)}>
-          <Plus className="h-4 w-4" />
-          New doctor
-        </Button>
+        {canAdd && (
+          <Button type="button" onClick={() => setOpen(true)}>
+            <Plus className="h-4 w-4" />
+            New doctor
+          </Button>
+        )}
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {doctors.map((d) => (

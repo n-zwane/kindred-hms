@@ -6,9 +6,12 @@ import type { Patient } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { useAuth } from '@/features/auth/AuthContext'
 import { PatientFormDialog } from './PatientFormDialog'
 
 export function PatientsPage() {
+  const { profile } = useAuth()
+  const canAdd = profile?.role === 'receptionist' || profile?.role === 'admin'
   const [patients, setPatients] = useState<Patient[]>([])
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
@@ -34,10 +37,12 @@ export function PatientsPage() {
           <h1 className="text-2xl font-bold">Patient grid</h1>
           <Badge className="mt-2">Total patients: {patients.length}</Badge>
         </div>
-        <Button type="button" onClick={() => setOpen(true)}>
-          <Plus className="h-4 w-4" />
-          New patient
-        </Button>
+        {canAdd && (
+          <Button type="button" onClick={() => setOpen(true)}>
+            <Plus className="h-4 w-4" />
+            New patient
+          </Button>
+        )}
       </div>
       {loading ? (
         <p className="text-gray-500">Loading…</p>
