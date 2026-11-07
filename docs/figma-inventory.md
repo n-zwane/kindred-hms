@@ -27,7 +27,7 @@ Design exports live **locally only** under `Figma/` (gitignored). Paths below ar
 | `Doctor Details.png` | Detail | Profile, availability, credentials | Doctors | T9 |
 | `Add New Doctor.png` | Form drawer | Onboarding (implement core fields first) | Doctors | T9 |
 | `reset-password/rafiki.png` | Illustration | Reset password panel | Auth | T5 |
-| `Preclinic - ... UI Kit.jpg` | Reference | Full kit overview | — | Do not implement full menu |
+| `Preclinic - ... UI Kit.jpg` | Reference | Full kit overview | - | Do not implement full menu |
 
 Multi-frame SVGs embed raster content; use as visual reference. Export single-frame PNGs locally if pixel-diff review is needed.
 

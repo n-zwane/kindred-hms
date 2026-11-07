@@ -74,9 +74,9 @@ export function AddDoctorDrawer({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/30">
-      <div className="h-full w-full max-w-lg overflow-y-auto bg-white p-6 shadow-xl">
+      <div className="h-full w-full max-w-lg overflow-y-auto overscroll-contain bg-white p-6 shadow-border">
         <h2 className="text-xl font-semibold">New doctor</h2>
-        <p className="text-sm text-gray-500">Core fields — extend profile later.</p>
+        <p className="text-sm text-muted">Core fields - extend profile later.</p>
         <form className="mt-4 space-y-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -104,7 +104,7 @@ export function AddDoctorDrawer({
             <Label>Bio</Label>
             <Textarea rows={3} {...register('bio')} />
           </div>
-          <fieldset className="rounded-lg border p-3">
+          <fieldset className="rounded-xl border border-border p-3">
             <legend className="px-1 text-sm font-medium">Weekly schedule (sample day)</legend>
             <div className="grid grid-cols-3 gap-2">
               <div>

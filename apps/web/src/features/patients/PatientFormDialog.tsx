@@ -59,7 +59,7 @@ export function PatientFormDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-lg">
+      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto overscroll-contain rounded-2xl border border-transparent bg-white p-6 shadow-border">
         <h2 className="text-lg font-semibold">New patient</h2>
         <form className="mt-4 space-y-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2 gap-3">

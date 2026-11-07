@@ -1,4 +1,4 @@
-# Supabase Auth setup (Step 4) — `qgdxxvcgvftcigsacxap`
+# Supabase Auth setup (Step 4) - `qgdxxvcgvftcigsacxap`
 
 Do this in the [Supabase Dashboard](https://supabase.com/dashboard/project/qgdxxvcgvftcigsacxap) for patient sign-up and local dev.
 
@@ -25,19 +25,48 @@ http://127.0.0.1:5173/**
 http://localhost:5173/reset-password
 ```
 
-When you deploy, add your production URL the same way (e.g. `https://your-app.vercel.app/**`).
+When you deploy, add your production URL the same way. Firebase Hosting for this repo is:
+
+```
+https://kindred-hms-nzwane.web.app/**
+https://kindred-hms-nzwane.firebaseapp.com/**
+```
 
 ## 3. Push database schema (one time)
 
-From the project folder (linked project `qgdxxvcgvftcigsacxap`):
+Run from **this repo root** (not your home folder - link lives under `supabase/.temp/`):
 
-```bash
+```powershell
+cd "C:\Users\Nicoroy L. Zwane\Documents\GitHub\SE"
+```
+
+The CLI often sits on **Initialising login role...** until it can reach the database or you cancel. Supabase then suggests using your real DB password instead of the temporary login role.
+
+**PowerShell (recommended):**
+
+```powershell
+$env:SUPABASE_DB_PASSWORD = "YOUR_DATABASE_PASSWORD"   # from project create / Dashboard → Settings → Database
 supabase db push
 ```
 
-Enter the **database password** from when you created the project. This creates tables, RLS, grants, and sign-up triggers.
+Or pass the password once on the command:
 
-Optional seed (demo wards/doctors) — run `supabase/seed.sql` in **SQL Editor** if you want sample data (not required for patient sign-up).
+```powershell
+supabase db push -p "YOUR_DATABASE_PASSWORD"
+```
+
+Remove the env var after use if you like: `Remove-Item Env:SUPABASE_DB_PASSWORD`
+
+**If it still hangs:** check firewall/VPN; try again on another network. Password is in [Dashboard → Project Settings → Database](https://supabase.com/dashboard/project/qgdxxvcgvftcigsacxap/settings/database) (reset there if you lost it).
+
+**No CLI option:** open **SQL Editor** and run, in order:
+
+1. `supabase/migrations/20261107134938_core_schema.sql`
+2. `supabase/migrations/20261107142302_grants_and_patient_signup.sql`
+
+That creates tables, RLS, grants, and sign-up triggers.
+
+Optional seed (demo wards/doctors) - run `supabase/seed.sql` in **SQL Editor** if you want sample data (not required for patient sign-up).
 
 ## 4. Web app env
 

@@ -4,8 +4,8 @@ TypeScript React front end with **Supabase** (Auth + PostgreSQL) for the N-i-MBL
 
 ## Reference materials (not in Git)
 
-- `Context/` — requirements PDFs (local copy)  
-- `Figma/` — UI exports (local copy)  
+- `Context/` - requirements PDFs (local copy)  
+- `Figma/` - UI exports (local copy)  
 
 Summaries live in [`docs/`](./docs/). Obtain PDFs and Figma files from your team if you clone this repo without them.
 
@@ -38,6 +38,17 @@ npm run test
 - Hosted / team database: [docs/supabase-hosted.md](./docs/supabase-hosted.md)  
 - Auth URLs (step 4): [docs/supabase-auth-setup.md](./docs/supabase-auth-setup.md)  
 - Patients: **Sign in** or **Create account** at `/signup`
+
+## Firebase Hosting
+
+The Vite app builds to `apps/web/dist` and deploys as a single-page app.
+
+```bash
+npm run build
+firebase deploy --only hosting
+```
+
+Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `apps/web/.env` before building. After the first deploy, add the Firebase URL to Supabase Auth redirect allow-lists.
 
 ## Status
 

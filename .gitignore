@@ -42,3 +42,9 @@ Thumbs.db
 
 # Cursor
 .cursor/
+
+# Firebase
+.firebase/
+firebase-debug.log
+ui-debug.log
+

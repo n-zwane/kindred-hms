@@ -8,6 +8,8 @@ import { useAuth } from '@/features/auth/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { AuthSplitLayout } from '@/features/auth/AuthSplitLayout'
+import { AuthFormPanel } from '@/features/auth/AuthFormPanel'
 
 const schema = z
   .object({
@@ -71,18 +73,15 @@ export function SignUpPage() {
   }
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2">
-      <div className="flex flex-col justify-center bg-[var(--color-auth-panel)] px-10 py-12">
-        <h1 className="text-3xl font-bold text-gray-900">Patient registration</h1>
-        <p className="mt-4 max-w-md text-gray-600">
-          Create a portal account to book appointments and view your authorised health information.
-        </p>
-      </div>
-      <div className="flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md space-y-6">
+    <AuthSplitLayout
+      title="Patient registration"
+      subtitle="Create a portal account to book appointments and view your authorised health information."
+    >
+        <AuthFormPanel>
+        <div className="space-y-6">
           <div>
-            <h2 className="text-2xl font-semibold">Create account</h2>
-            <p className="text-sm text-gray-500">Staff accounts are issued by your hospital administrator.</p>
+            <h2 className="text-xl font-medium">Create account</h2>
+            <p className="mt-1 text-sm text-muted">Staff accounts are issued by your hospital administrator.</p>
           </div>
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2 gap-3">
@@ -130,14 +129,14 @@ export function SignUpPage() {
               {isSubmitting ? 'Creating account…' : 'Create patient account'}
             </Button>
           </form>
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-sm text-muted">
             Already registered?{' '}
             <Link className="text-primary hover:underline" to="/login">
               Sign in
             </Link>
           </p>
         </div>
-      </div>
-    </div>
+        </AuthFormPanel>
+    </AuthSplitLayout>
   )
 }

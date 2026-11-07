@@ -1,50 +1,50 @@
-import type { LucideIcon } from 'lucide-react'
+import type { Icon } from '@phosphor-icons/react'
 import {
-  Calendar,
-  ClipboardList,
-  LayoutDashboard,
+  Buildings,
+  CalendarBlank,
+  ClipboardText,
+  Note,
   Pill,
+  ShieldCheck,
+  SquaresFour,
   Stethoscope,
   Users,
-  Building2,
-  Shield,
-  FileText,
-} from 'lucide-react'
+} from '@phosphor-icons/react'
 import type { UserRole } from '@/types'
 
 export interface NavItem {
   label: string
   href: string
-  icon: LucideIcon
+  icon: Icon
 }
 
 const byRole: Record<UserRole, NavItem[]> = {
   patient: [
-    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
-    { label: 'Appointments', href: '/appointments', icon: Calendar },
+    { label: 'Dashboard', href: '/', icon: SquaresFour },
+    { label: 'Appointments', href: '/appointments', icon: CalendarBlank },
   ],
   receptionist: [
-    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
+    { label: 'Dashboard', href: '/', icon: SquaresFour },
     { label: 'Patients', href: '/patients', icon: Users },
-    { label: 'Appointments', href: '/appointments', icon: Calendar },
+    { label: 'Appointments', href: '/appointments', icon: CalendarBlank },
     { label: 'Doctors', href: '/doctors', icon: Stethoscope },
   ],
   doctor: [
-    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
-    { label: 'Appointments', href: '/appointments', icon: Calendar },
+    { label: 'Dashboard', href: '/', icon: SquaresFour },
+    { label: 'Appointments', href: '/appointments', icon: CalendarBlank },
     { label: 'Patients', href: '/patients', icon: Users },
-    { label: 'Records', href: '/records', icon: FileText },
+    { label: 'Records', href: '/records', icon: Note },
     { label: 'Prescriptions', href: '/prescriptions', icon: Pill },
   ],
   admin: [
-    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
-    { label: 'Appointments', href: '/appointments', icon: Calendar },
-    { label: 'Wards', href: '/wards', icon: Building2 },
+    { label: 'Dashboard', href: '/', icon: SquaresFour },
+    { label: 'Appointments', href: '/appointments', icon: CalendarBlank },
+    { label: 'Wards', href: '/wards', icon: Buildings },
   ],
   it_admin: [
-    { label: 'Dashboard', href: '/', icon: LayoutDashboard },
-    { label: 'Users', href: '/users', icon: Shield },
-    { label: 'Audit log', href: '/audit', icon: ClipboardList },
+    { label: 'Dashboard', href: '/', icon: SquaresFour },
+    { label: 'Users', href: '/users', icon: ShieldCheck },
+    { label: 'Audit log', href: '/audit', icon: ClipboardText },
   ],
 }
 

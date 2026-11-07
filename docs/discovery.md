@@ -53,7 +53,7 @@ Patient, Appointment, Doctor, PatientRecord, Prescription, Ward, WardAllocation,
 | Clinic | Single default clinic |
 | Navigation | Trimmed, role-specific sidebar |
 | Doctor onboarding | Core fields first: name, specialisation, schedule, contact (extensible) |
-| Reference assets | `Context/` and `Figma/` are **local only** — not in Git |
+| Reference assets | `Context/` and `Figma/` are **local only** - not in Git |
 
 Course Step 5 report proposed React + Express + PostgreSQL; this repo uses **Supabase-first** access (Auth, Postgres, RLS; Edge Functions only when RLS is insufficient).
 
@@ -68,7 +68,7 @@ Course Step 5 report proposed React + Express + PostgreSQL; this repo uses **Sup
 
 Requirements and UI exports are read from gitignored folders at the repo root:
 
-- `Context/` — Step 4 and Step 5 PDFs  
-- `Figma/` — screen exports (see [figma-inventory.md](./figma-inventory.md))  
+- `Context/` - Step 4 and Step 5 PDFs  
+- `Figma/` - screen exports (see [figma-inventory.md](./figma-inventory.md))  
 
 Teammates need those folders locally or via team storage; distilled truth lives in `docs/`.

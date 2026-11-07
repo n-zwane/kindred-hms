@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
+import { Plus } from '@phosphor-icons/react'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/features/auth/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { PageHeader } from '@/components/layout/PageHeader'
 import { format } from 'date-fns'
 
 interface Rx {
@@ -67,58 +70,92 @@ export function PrescriptionsPage() {
     await load()
   }
 
+  const canCreate = profile?.role === 'doctor'
+
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Prescriptions</h1>
-      {profile?.role === 'doctor' && (
-        <div className="rounded-xl border bg-white p-4 space-y-3 max-w-lg">
-          <h2 className="font-medium">New prescription</h2>
-          <div>
-            <Label>Patient</Label>
-            <select
-              className="mt-1 h-10 w-full rounded-lg border px-2"
-              value={patientId}
-              onChange={(e) => setPatientId(e.target.value)}
+    <div className="space-y-5">
+      <PageHeader
+        title="Issued"
+        meta={<span className="pb-2 text-muted">{rows.length} prescriptions</span>}
+        actions={
+          canCreate ? (
+            <Button
+              type="button"
+              size="sm"
+              onClick={() => void create()}
+              disabled={!doctorId || !patientId || !medication || !dosage}
             >
-              <option value="">Select…</option>
-              {patients.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <Label>Medication</Label>
-            <Input value={medication} onChange={(e) => setMedication(e.target.value)} />
-          </div>
-          <div>
-            <Label>Dosage</Label>
-            <Input value={dosage} onChange={(e) => setDosage(e.target.value)} />
-          </div>
-          <div>
-            <Label>Instructions</Label>
-            <Textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} />
-          </div>
-          <Button type="button" onClick={() => void create()} disabled={!doctorId}>
-            Add prescription
-          </Button>
-        </div>
+              <Plus size={14} weight="regular" aria-hidden />
+              Add prescription
+            </Button>
+          ) : undefined
+        }
+      />
+      {canCreate && (
+        <Card className="max-w-lg">
+          <CardHeader>
+            <CardTitle>New prescription</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div>
+              <Label>Patient</Label>
+              <select
+                className="mt-1 h-9 w-full rounded-md border border-border bg-white px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                value={patientId}
+                onChange={(e) => setPatientId(e.target.value)}
+              >
+                <option value="">Select…</option>
+                {patients.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <Label>Medication</Label>
+              <Input value={medication} onChange={(e) => setMedication(e.target.value)} />
+            </div>
+            <div>
+              <Label>Dosage</Label>
+              <Input value={dosage} onChange={(e) => setDosage(e.target.value)} />
+            </div>
+            <div>
+              <Label>Instructions</Label>
+              <Textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} />
+            </div>
+          </CardContent>
+        </Card>
       )}
-      <ul className="divide-y rounded-xl border bg-white">
-        {rows.map((r) => (
-          <li key={r.id} className="px-4 py-3 text-sm">
-            <div className="font-medium">
-              {r.medication} · {r.dosage}
-            </div>
-            <div className="text-gray-500">
-              {r.patients.first_name} {r.patients.last_name} ·{' '}
-              {format(new Date(r.prescribed_at), 'dd MMM yyyy')}
-            </div>
-            {r.instructions && <p className="text-gray-600">{r.instructions}</p>}
-          </li>
-        ))}
-      </ul>
+      <Card>
+        <CardHeader>
+          <CardTitle>History</CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          <ul>
+            {rows.length === 0 && (
+              <li className="px-6 py-4 text-sm text-muted">No prescriptions yet.</li>
+            )}
+            {rows.map((r) => (
+              <li
+                key={r.id}
+                className="flex flex-wrap items-start justify-between gap-3 border-b border-border/60 px-6 py-3 last:border-0"
+              >
+                <div>
+                  <div className="text-sm font-medium text-foreground">
+                    {r.medication} · {r.dosage}
+                  </div>
+                  <div className="text-xs text-muted">
+                    {r.patients.first_name} {r.patients.last_name} ·{' '}
+                    {format(new Date(r.prescribed_at), 'dd MMM yyyy')}
+                  </div>
+                  {r.instructions && <p className="mt-1 text-sm text-muted">{r.instructions}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
     </div>
   )
 }

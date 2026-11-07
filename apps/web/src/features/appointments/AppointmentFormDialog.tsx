@@ -72,7 +72,7 @@ export function AppointmentFormDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-xl bg-white p-6">
+      <div className="max-h-[90vh] w-full max-w-md overflow-y-auto overscroll-contain rounded-2xl border border-transparent bg-white p-6 shadow-border">
         <h2 className="text-lg font-semibold">New appointment</h2>
         <form className="mt-4 space-y-3" onSubmit={handleSubmit(onSubmit)}>
           <div>

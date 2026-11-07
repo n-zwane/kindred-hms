@@ -1,29 +1,65 @@
-import { Outlet, NavLink } from 'react-router-dom'
-import { Bell, Calendar, LogOut, Search, Settings } from 'lucide-react'
+import { Outlet, NavLink, useLocation } from 'react-router-dom'
 import { useAuth } from '@/features/auth/AuthContext'
 import { navItemsForRole } from '@/lib/navigation'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { BrandMark } from '@/components/layout/BrandMark'
+import { HeaderToolbar } from '@/layouts/HeaderToolbar'
 
 const CLINIC_NAME = 'Trustcare Clinic'
 const CLINIC_LOCATION = 'Bellville'
 
+const routeCopy: Record<string, { title: string; subtitle: string }> = {
+  '/': {
+    title: 'Dashboard',
+    subtitle: 'Your clinic performance summary this week',
+  },
+  '/patients': { title: 'Patients', subtitle: 'Search and open patient profiles' },
+  '/doctors': { title: 'Doctors', subtitle: 'Browse specialists and availability' },
+  '/appointments': { title: 'Appointments', subtitle: 'Scheduling, check-ins, and status' },
+  '/wards': { title: 'Wards', subtitle: 'Occupancy and bed allocation' },
+  '/records': { title: 'Records', subtitle: 'Clinical notes and visit history' },
+  '/prescriptions': { title: 'Prescriptions', subtitle: 'Medications issued to patients' },
+  '/users': { title: 'Users', subtitle: 'Accounts and role assignments' },
+  '/audit': { title: 'Audit', subtitle: 'Recent platform activity' },
+}
+
+function copyForPath(pathname: string) {
+  if (routeCopy[pathname]) return routeCopy[pathname]
+  if (pathname.startsWith('/patients/')) {
+    return { title: 'Patient', subtitle: 'Profile, contact details, and visit history' }
+  }
+  if (pathname.startsWith('/doctors/')) {
+    return { title: 'Doctor', subtitle: 'Profile, speciality, and availability' }
+  }
+  return { title: 'Kindred', subtitle: '' }
+}
+
+function greetingForHour(hour: number) {
+  if (hour < 12) return 'Good Morning'
+  if (hour < 18) return 'Good Afternoon'
+  return 'Good Evening'
+}
+
 export function AppShell() {
-  const { profile, signOut } = useAuth()
+  const { profile } = useAuth()
+  const location = useLocation()
   const nav = profile ? navItemsForRole(profile.role) : []
+  const copy = copyForPath(location.pathname)
+  const nameParts = profile?.full_name?.trim().split(/\s+/) ?? []
+  const greeting = greetingForHour(new Date().getHours())
+  const firstName = nameParts[0] || 'there'
 
   return (
-    <div className="flex min-h-screen bg-[var(--color-background)]">
-      <aside className="flex w-64 shrink-0 flex-col border-r border-[var(--color-border)] bg-white">
-        <div className="border-b border-gray-100 px-5 py-5">
-          <div className="text-lg font-bold text-primary">Kindred</div>
-          <p className="mt-3 text-xs font-medium text-gray-500">Clinic</p>
-          <div className="mt-1 rounded-lg bg-gray-50 px-3 py-2 text-sm">
-            <div className="font-medium text-gray-900">{CLINIC_NAME}</div>
-            <div className="text-gray-500">{CLINIC_LOCATION}</div>
-          </div>
+    <div className="flex min-h-dvh bg-background">
+      <aside className="flex w-56 shrink-0 flex-col bg-white">
+        <div className="flex items-center gap-2.5 px-5 py-5">
+          <BrandMark />
+          <div className="text-[15px] font-medium text-foreground">Kindred</div>
         </div>
-        <nav className="flex flex-1 flex-col gap-1 p-3">
+        <p className="px-5 pb-2 text-[11px] font-medium uppercase tracking-wider text-muted">
+          {CLINIC_NAME} · {CLINIC_LOCATION}
+        </p>
+        <nav className="flex flex-1 flex-col gap-0.5 px-3" aria-label="Main navigation">
           {nav.map((item) => (
             <NavLink
               key={item.href}
@@ -31,47 +67,41 @@ export function AppShell() {
               end={item.href === '/'}
               className={({ isActive }) =>
                 cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50',
-                  isActive && 'bg-primary/10 text-primary',
+                  'flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted transition-[background-color,color] duration-150 hover:bg-surface-muted hover:text-foreground',
+                  isActive && 'bg-surface-muted font-medium text-primary',
                 )
               }
             >
-              <item.icon className="h-4 w-4" />
-              {item.label}
+              {({ isActive }) => (
+                <>
+                  <item.icon
+                    size={18}
+                    weight={isActive ? 'fill' : 'regular'}
+                    className="shrink-0"
+                    aria-hidden
+                  />
+                  {item.label}
+                </>
+              )}
             </NavLink>
           ))}
         </nav>
-        <div className="border-t border-gray-100 p-4 text-xs text-gray-400">
-          © {new Date().getFullYear()} Kindred
-        </div>
+        <div className="px-5 py-4 text-xs text-muted">© {new Date().getFullYear()} Kindred</div>
       </aside>
-      <div className="flex min-h-screen flex-1 flex-col">
-        <header className="flex h-16 items-center gap-4 border-b border-[var(--color-border)] bg-white px-6">
-          <div className="relative mx-auto w-full max-w-xl flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-            <input
-              type="search"
-              placeholder="Search…"
-              className="h-10 w-full rounded-lg border border-[var(--color-border)] bg-gray-50 pl-10 pr-4 text-sm"
-              aria-label="Search"
-            />
+      <div className="flex min-h-dvh min-w-0 flex-1 flex-col">
+        <header className="flex flex-nowrap items-center gap-3 bg-background px-6 py-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="truncate text-[22px] font-normal text-muted">
+              {greeting}, <span className="font-medium text-foreground">{firstName}</span>
+            </h1>
+            <p className="mt-0.5 text-sm text-muted">{copy.subtitle || copy.title}</p>
           </div>
-          <Calendar className="h-5 w-5 text-gray-500" aria-hidden />
-          <Settings className="h-5 w-5 text-gray-500" aria-hidden />
-          <Bell className="h-5 w-5 text-gray-500" aria-hidden />
-          <div className="flex items-center gap-2 border-l border-gray-200 pl-4">
-            <div className="text-right text-sm">
-              <div className="font-medium">{profile?.full_name}</div>
-              <div className="text-xs capitalize text-gray-500">
-                {profile?.role?.replace('_', ' ') ?? 'Loading…'}
-              </div>
-            </div>
-            <Button variant="ghost" size="icon" onClick={() => void signOut()} aria-label="Sign out">
-              <LogOut className="h-4 w-4" />
-            </Button>
-          </div>
+          <HeaderToolbar />
         </header>
-        <main className="flex-1 p-6">
+        <main
+          key={location.pathname}
+          className="animate-enter-up min-w-0 flex-1 px-6 pb-8 pt-3"
+        >
           <Outlet />
         </main>
       </div>

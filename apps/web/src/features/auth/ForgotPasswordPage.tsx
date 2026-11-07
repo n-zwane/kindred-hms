@@ -7,6 +7,8 @@ import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { AuthSplitLayout } from '@/features/auth/AuthSplitLayout'
+import { AuthFormPanel } from '@/features/auth/AuthFormPanel'
 
 const schema = z.object({ email: z.string().email() })
 
@@ -30,10 +32,14 @@ export function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--color-background)] px-4">
-      <div className="w-full max-w-md rounded-xl border bg-white p-8 shadow-sm">
-        <h1 className="text-xl font-semibold">Forgot password</h1>
-        <p className="mt-2 text-sm text-gray-500">We will email you a reset link.</p>
+    <AuthSplitLayout
+      title="Reset your password"
+      subtitle="Enter the email linked to your account and we will send a secure reset link."
+    >
+      <AuthFormPanel>
+      <div>
+        <h1 className="text-xl font-medium">Forgot password</h1>
+        <p className="mt-2 text-sm text-muted">We will email you a reset link.</p>
         <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
@@ -51,6 +57,7 @@ export function ForgotPasswordPage() {
           </Link>
         </p>
       </div>
-    </div>
+      </AuthFormPanel>
+    </AuthSplitLayout>
   )
 }

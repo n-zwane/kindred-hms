@@ -3,21 +3,22 @@ import { cn } from '@/lib/utils'
 import type { ButtonHTMLAttributes } from 'react'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md text-sm font-medium transition-[color,background-color,opacity,transform] duration-150 ease-out motion-safe:enabled:active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-white hover:bg-[var(--color-primary-hover)]',
+        default: 'bg-primary text-primary-foreground hover:bg-primary-hover',
         outline:
-          'border border-[var(--color-border)] bg-white hover:bg-gray-50',
-        ghost: 'hover:bg-gray-100',
-        destructive: 'bg-red-600 text-white hover:bg-red-700',
+          'border border-border bg-white text-foreground hover:bg-surface-muted',
+        ghost: 'text-muted hover:bg-surface-muted hover:text-foreground',
+        destructive: 'bg-danger text-white hover:brightness-95',
       },
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-lg px-8',
-        icon: 'h-10 w-10',
+        default:
+          'h-9 px-4 py-2 has-[>svg:first-child]:ps-3.5 has-[>svg:last-child]:pe-3.5',
+        sm: 'h-8 rounded-md px-3 text-[13px] has-[>svg:first-child]:ps-2.5 has-[>svg:last-child]:pe-2.5',
+        lg: 'h-10 rounded-md px-6 has-[>svg:first-child]:ps-[22px] has-[>svg:last-child]:pe-[22px]',
+        icon: 'h-9 w-9',
       },
     },
     defaultVariants: {

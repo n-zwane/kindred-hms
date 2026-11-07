@@ -7,6 +7,8 @@ import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { AuthSplitLayout } from '@/features/auth/AuthSplitLayout'
+import { AuthFormPanel } from '@/features/auth/AuthFormPanel'
 
 const schema = z
   .object({
@@ -37,13 +39,13 @@ export function ResetPasswordPage() {
   }
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2">
-      <div className="hidden items-center justify-center bg-[var(--color-auth-panel)] lg:flex">
-        <img src="/rafiki.png" alt="" className="max-h-80 w-auto" />
-      </div>
-      <div className="flex items-center justify-center px-6">
-        <div className="w-full max-w-md space-y-4 rounded-xl border bg-white p-8">
-          <h1 className="text-xl font-semibold">Reset password</h1>
+    <AuthSplitLayout
+      title="Choose a new password"
+      subtitle="Use at least six characters. You will return to sign in when this is saved."
+    >
+        <AuthFormPanel>
+        <div className="space-y-4">
+          <h1 className="text-xl font-medium">Reset password</h1>
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-2">
               <Label htmlFor="password">New password</Label>
@@ -63,7 +65,7 @@ export function ResetPasswordPage() {
             Back to sign in
           </Link>
         </div>
-      </div>
-    </div>
+        </AuthFormPanel>
+    </AuthSplitLayout>
   )
 }

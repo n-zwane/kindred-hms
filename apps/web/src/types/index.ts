@@ -52,8 +52,8 @@ export interface Appointment {
   ends_at: string
   status: AppointmentStatus
   notes: string | null
-  patients?: Pick<Patient, 'first_name' | 'last_name' | 'phone'>
-  doctors?: Pick<Doctor, 'first_name' | 'last_name' | 'specialisation'>
+  patients?: Pick<Patient, 'first_name' | 'last_name' | 'phone' | 'email'>
+  doctors?: Pick<Doctor, 'first_name' | 'last_name' | 'specialisation' | 'email'>
 }
 
 export interface Ward {

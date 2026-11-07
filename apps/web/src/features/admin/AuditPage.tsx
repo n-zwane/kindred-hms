@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 import { supabase } from '@/lib/supabase'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
+import { PageHeader } from '@/components/layout/PageHeader'
 
 interface AuditRow {
   id: string
@@ -26,22 +27,27 @@ export function AuditPage() {
   }, [])
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Audit log</h1>
+    <div className="space-y-5">
+      <PageHeader
+        title="Activity"
+        meta={<span className="pb-2 text-muted">{rows.length} events</span>}
+      />
       <Card>
-        <CardHeader>
-          <CardTitle>Recent events</CardTitle>
-        </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           {rows.length === 0 ? (
-            <p className="text-sm text-gray-500">No audit entries yet.</p>
+            <p className="px-6 py-4 text-sm text-muted">No audit entries yet.</p>
           ) : (
-            <ul className="divide-y text-sm">
+            <ul>
               {rows.map((r) => (
-                <li key={r.id} className="py-2">
-                  <span className="font-medium">{r.action}</span>
-                  {r.entity_type && <span className="text-gray-500"> · {r.entity_type}</span>}
-                  <div className="text-xs text-gray-400">
+                <li
+                  key={r.id}
+                  className="flex flex-wrap items-start justify-between gap-3 border-b border-border/60 px-6 py-3 last:border-0"
+                >
+                  <div>
+                    <span className="text-sm font-medium text-foreground">{r.action}</span>
+                    {r.entity_type && <span className="text-sm text-muted"> · {r.entity_type}</span>}
+                  </div>
+                  <div className="text-xs tabular-nums text-muted">
                     {format(new Date(r.created_at), 'dd MMM yyyy HH:mm')}
                   </div>
                 </li>

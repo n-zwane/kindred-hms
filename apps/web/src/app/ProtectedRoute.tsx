@@ -8,7 +8,7 @@ export function ProtectedRoute({ roles }: { roles?: UserRole[] }) {
 
   if (loading || (session && profileLoading)) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-gray-500">
+      <div className="flex min-h-screen items-center justify-center text-muted">
         Loading…
       </div>
     )
@@ -20,10 +20,10 @@ export function ProtectedRoute({ roles }: { roles?: UserRole[] }) {
 
   if (!profile) {
     return (
-      <div className="flex min-h-screen items-center justify-center px-4 text-center text-gray-600">
+      <div className="flex min-h-screen items-center justify-center px-4 text-center text-muted">
         <div>
-          <p className="font-medium">Could not load your profile.</p>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="font-medium text-foreground">Could not load your profile.</p>
+          <p className="mt-1 text-sm text-muted">
             Check that Supabase is running and your user has a row in <code>profiles</code>.
           </p>
         </div>

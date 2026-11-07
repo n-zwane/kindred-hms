@@ -4,6 +4,8 @@ import type { Patient, Ward } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
+import { PageHeader } from '@/components/layout/PageHeader'
+import { KpiStat } from '@/features/dashboard/components/KpiStat'
 
 export function WardsPage() {
   const [wards, setWards] = useState<Ward[]>([])
@@ -39,20 +41,36 @@ export function WardsPage() {
     await load()
   }
 
+  const occupied = wards.reduce((sum, w) => sum + w.occupied, 0)
+  const capacity = wards.reduce((sum, w) => sum + w.capacity, 0)
+
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Ward management</h1>
+    <div className="space-y-5">
+      <PageHeader
+        title="Occupancy"
+        actions={
+          <Button type="button" size="sm" disabled={!wardId || !patientId} onClick={() => void allocate()}>
+            Allocate
+          </Button>
+        }
+      />
+      <div className="flex flex-wrap gap-6 border-b border-border pb-4">
+        <KpiStat label="Wards" value={wards.length} />
+        <KpiStat label="Occupied" value={occupied} />
+        <KpiStat label="Capacity" value={capacity} />
+        <KpiStat label="Free beds" value={Math.max(0, capacity - occupied)} />
+      </div>
       <div className="grid gap-4 md:grid-cols-3">
         {wards.map((w) => (
           <Card key={w.id}>
             <CardHeader>
               <CardTitle>{w.name}</CardTitle>
+              <p className="text-sm text-muted">occupied / capacity</p>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-semibold text-primary">
+              <p className="text-2xl font-medium tabular-nums tracking-tight text-foreground">
                 {w.occupied} / {w.capacity}
               </p>
-              <p className="text-xs text-gray-500">occupied / capacity</p>
             </CardContent>
           </Card>
         ))}
@@ -65,7 +83,7 @@ export function WardsPage() {
           <div>
             <Label>Ward</Label>
             <select
-              className="mt-1 h-10 w-full rounded-lg border px-2"
+              className="mt-1 h-9 w-full rounded-md border border-border bg-white px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
               value={wardId}
               onChange={(e) => setWardId(e.target.value)}
             >
@@ -80,7 +98,7 @@ export function WardsPage() {
           <div>
             <Label>Patient</Label>
             <select
-              className="mt-1 h-10 w-full rounded-lg border px-2"
+              className="mt-1 h-9 w-full rounded-md border border-border bg-white px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
               value={patientId}
               onChange={(e) => setPatientId(e.target.value)}
             >
@@ -93,11 +111,8 @@ export function WardsPage() {
             </select>
           </div>
           <div className="md:col-span-2">
-            {error && <p className="text-sm text-red-600">{error}</p>}
-            {message && <p className="text-sm text-emerald-700">{message}</p>}
-            <Button type="button" className="mt-2" disabled={!wardId || !patientId} onClick={() => void allocate()}>
-              Allocate
-            </Button>
+            {error && <p className="text-sm text-danger">{error}</p>}
+            {message && <p className="text-sm text-success">{message}</p>}
           </div>
         </CardContent>
       </Card>

@@ -4,16 +4,16 @@
 
 ```text
 ┌─────────────────────────────────────────────┐
-│  apps/web — React (presentation only)       │
+│  apps/web - React (presentation only)       │
 │  Tailwind + shadcn/ui, role-based routes    │
 └─────────────────────┬───────────────────────┘
                       │ Supabase JS client
 ┌─────────────────────▼───────────────────────┐
-│  Supabase Auth — sessions, passwords        │
+│  Supabase Auth - sessions, passwords        │
 └─────────────────────┬───────────────────────┘
                       │
 ┌─────────────────────▼───────────────────────┐
-│  PostgreSQL — domain tables + RLS policies  │
+│  PostgreSQL - domain tables + RLS policies  │
 │  (optional Edge Functions for transactions) │
 └─────────────────────────────────────────────┘
 ```

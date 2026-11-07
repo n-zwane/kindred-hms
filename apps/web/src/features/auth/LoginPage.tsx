@@ -8,6 +8,8 @@ import { useAuth } from '@/features/auth/AuthContext'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { AuthSplitLayout } from '@/features/auth/AuthSplitLayout'
+import { AuthFormPanel } from '@/features/auth/AuthFormPanel'
 
 const schema = z.object({
   email: z.string().email(),
@@ -42,18 +44,15 @@ export function LoginPage() {
   }
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-2">
-      <div className="flex flex-col justify-center bg-[var(--color-auth-panel)] px-10 py-12">
-        <h1 className="text-3xl font-bold text-gray-900">Kindred</h1>
-        <p className="mt-4 max-w-md text-gray-600">
-          Hospital administration — secure access for patients and care teams.
-        </p>
-      </div>
-      <div className="flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md space-y-6">
+    <AuthSplitLayout
+      title="Welcome back"
+      subtitle="Hospital administration - secure access for patients and care teams."
+    >
+        <AuthFormPanel>
+        <div className="space-y-6">
           <div>
-            <h2 className="text-2xl font-semibold">Sign in</h2>
-            <p className="text-sm text-gray-500">Use your assigned account credentials.</p>
+            <h2 className="text-xl font-medium">Sign in</h2>
+            <p className="mt-1 text-sm text-muted">Use your assigned account credentials.</p>
           </div>
           <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-2">
@@ -69,7 +68,7 @@ export function LoginPage() {
               {isSubmitting ? 'Signing in…' : 'Sign in'}
             </Button>
           </form>
-          <div className="space-y-2 text-center text-sm text-gray-500">
+          <div className="space-y-2 text-center text-sm text-muted">
             <p>
               <Link className="text-primary hover:underline" to="/forgot-password">
                 Forgot password?
@@ -83,7 +82,7 @@ export function LoginPage() {
             </p>
           </div>
         </div>
-      </div>
-    </div>
+        </AuthFormPanel>
+    </AuthSplitLayout>
   )
 }

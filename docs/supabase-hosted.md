@@ -16,9 +16,27 @@ supabase link --project-ref <your-project-ref>
 
 ## 3. Push schema
 
-```bash
+From the **linked repo root** (e.g. `...\Documents\GitHub\SE`):
+
+```powershell
+$env:SUPABASE_DB_PASSWORD = "YOUR_DATABASE_PASSWORD"
 supabase db push
 ```
+
+If the CLI hangs on `Initialising login role...`, you canceled before the password prompt, or you see `context canceled` / `SUPABASE_DB_PASSWORD` - use the env var or `-p` above ([docs/supabase-auth-setup.md](./supabase-auth-setup.md#3-push-database-schema-one-time)).
+
+If you see `wsarecv` / `i/o timeout` / `tls error` to `pooler.supabase.com` (ports **5432** or **6543**), your network is blocking or timing out Postgres (common on campus VPN/Wi‑Fi). The CLI cannot push until something changes (e.g. phone hotspot, home network).
+
+### Apply schema via SQL Editor (works over HTTPS)
+
+1. Open [SQL Editor](https://supabase.com/dashboard/project/qgdxxvcgvftcigsacxap/sql/new).
+2. Paste and **Run** the full contents of `supabase/migrations/20261107134938_core_schema.sql`.
+3. New query → paste and **Run** `supabase/migrations/20261107142302_grants_and_patient_signup.sql`.
+4. New query → **Run** `supabase/mark_migrations_applied.sql` (records migration history for a future `db push`).
+
+Optional: run `supabase/seed.sql` for demo wards/doctors.
+
+The direct host `db.<ref>.supabase.co` is often **IPv6-only**; if the CLI says `no such host` while the dashboard works, that is a separate IPv4/IPv6 issue-use the SQL Editor path above.
 
 This applies all files in `supabase/migrations/` to the remote database.
 
