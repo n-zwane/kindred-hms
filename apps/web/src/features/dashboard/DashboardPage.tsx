@@ -60,7 +60,9 @@ export function DashboardPage() {
     })()
   }, [profile])
 
-  if (!profile) return null
+  if (!profile) {
+    return <p className="text-gray-500">Loading dashboard…</p>
+  }
   const content = copy[profile.role]
 
   return (

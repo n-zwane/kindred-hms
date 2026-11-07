@@ -15,6 +15,7 @@ interface AuthState {
   session: Session | null
   profile: Profile | null
   loading: boolean
+  profileLoading: boolean
   refreshProfile: () => Promise<void>
   signOut: () => Promise<void>
 }
@@ -39,6 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
+  const [profileLoading, setProfileLoading] = useState(false)
 
   const refreshProfile = useCallback(async () => {
     if (!session?.user.id) {
@@ -63,10 +65,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (session?.user.id) {
-      void fetchProfile(session.user.id).then(setProfile)
-    } else {
+    if (!session?.user.id) {
       setProfile(null)
+      setProfileLoading(false)
+      return
+    }
+    let cancelled = false
+    setProfileLoading(true)
+    void fetchProfile(session.user.id).then((p) => {
+      if (!cancelled) {
+        setProfile(p)
+        setProfileLoading(false)
+      }
+    })
+    return () => {
+      cancelled = true
     }
   }, [session?.user.id])
 
@@ -76,8 +89,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const value = useMemo(
-    () => ({ session, profile, loading, refreshProfile, signOut }),
-    [session, profile, loading, refreshProfile, signOut],
+    () => ({ session, profile, loading, profileLoading, refreshProfile, signOut }),
+    [session, profile, loading, profileLoading, refreshProfile, signOut],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

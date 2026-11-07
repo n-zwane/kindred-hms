@@ -62,7 +62,9 @@ export function AppShell() {
           <div className="flex items-center gap-2 border-l border-gray-200 pl-4">
             <div className="text-right text-sm">
               <div className="font-medium">{profile?.full_name}</div>
-              <div className="text-xs capitalize text-gray-500">{profile?.role.replace('_', ' ')}</div>
+              <div className="text-xs capitalize text-gray-500">
+                {profile?.role?.replace('_', ' ') ?? 'Loading…'}
+              </div>
             </div>
             <Button variant="ghost" size="icon" onClick={() => void signOut()} aria-label="Sign out">
               <LogOut className="h-4 w-4" />
