@@ -50,6 +50,8 @@ firebase deploy --only hosting
 
 Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `apps/web/.env` before building. After the first deploy, add the Firebase URL to Supabase Auth redirect allow-lists.
 
+Live site: [https://kindred-hms-nzwane.web.app](https://kindred-hms-nzwane.web.app)
+
 ## Status
 
 See [`docs/ROADMAP.md`](./docs/ROADMAP.md) for current progress.
