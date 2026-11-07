@@ -1,0 +1,40 @@
+# Local reference materials (not versioned)
+Context/
+Figma/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Build output
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# Supabase local
+supabase/.branches/
+supabase/.temp/
+
+# Testing
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Cursor
+.cursor/
