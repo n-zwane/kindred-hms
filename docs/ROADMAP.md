@@ -8,7 +8,7 @@ One task at a time. Update checkboxes when a task is complete and committed on `
 - [x] `.gitignore` (includes `Context/`, `Figma/`)
 - [x] `.env.example`, `README.md`
 - [x] Git: `main` baseline, `develop` branch
-- [ ] Task 1 report confirmed with stakeholder
+- [x] Task 1 report confirmed with stakeholder
 
 ## Task 2 — Scaffold (not started)
 
