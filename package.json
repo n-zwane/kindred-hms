@@ -1,0 +1,16 @@
+{
+  "name": "hospital-admin-system",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @hms/web",
+    "build": "npm run build -w @hms/web",
+    "test": "npm run test -w @hms/web",
+    "lint": "npm run lint -w @hms/web"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

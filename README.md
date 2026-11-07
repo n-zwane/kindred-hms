@@ -25,9 +25,20 @@ Commits: [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, 
 
 Copy `.env.example` to `.env` and fill Supabase values after local stack is running (Task 3). Never commit `.env`.
 
+## Scripts (from repo root)
+
+```bash
+npm install
+npm run dev      # Vite dev server (@hms/web)
+npm run build
+npm run test
+```
+
+Supabase (after Task 3): see [docs/supabase-local.md](./docs/supabase-local.md).
+
 ## Status
 
-**Task 1 complete:** discovery documentation and repository initialisation. Application scaffold starts in Task 2.
+See [`docs/ROADMAP.md`](./docs/ROADMAP.md) for current progress.
 
 ## Docs
 

@@ -12,9 +12,13 @@ node_modules/
 .env.*.local
 !.env.example
 
+# Dependencies at app level (workspace hoists to root)
+apps/*/node_modules/
+
 # Build output
 dist/
 build/
+apps/web/dist/
 .vite/
 *.tsbuildinfo
 
