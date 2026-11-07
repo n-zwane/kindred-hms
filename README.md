@@ -36,6 +36,7 @@ npm run test
 
 - Local Supabase: [docs/supabase-local.md](./docs/supabase-local.md)  
 - Hosted / team database: [docs/supabase-hosted.md](./docs/supabase-hosted.md)  
+- Auth URLs (step 4): [docs/supabase-auth-setup.md](./docs/supabase-auth-setup.md)  
 - Patients: **Sign in** or **Create account** at `/signup`
 
 ## Status
