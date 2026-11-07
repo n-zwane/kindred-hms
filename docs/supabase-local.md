@@ -13,12 +13,16 @@ From the repository root:
 supabase start
 ```
 
-Copy **API URL** and **anon key** from the CLI output into `apps/web/.env`:
+Copy values from `supabase status` into `apps/web/.env` (file is gitignored):
 
 ```env
 VITE_SUPABASE_URL=http://127.0.0.1:54321
-VITE_SUPABASE_ANON_KEY=<anon-key-from-cli>
+VITE_SUPABASE_ANON_KEY=<ANON_KEY from supabase status>
 ```
+
+Use the JWT **`ANON_KEY`** for `@supabase/supabase-js` in the browser. The CLI may also show a **Publishable** key (`sb_publishable_…`); prefer `ANON_KEY` unless you migrate the client to the newer key format.
+
+Never put **SERVICE_ROLE_KEY** / **Secret** keys in the frontend or commit them.
 
 Apply migrations and seed:
 

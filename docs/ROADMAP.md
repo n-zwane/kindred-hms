@@ -16,7 +16,7 @@ One task at a time. Update checkboxes when a task is complete and committed on `
 ## Task 3 — Supabase local
 
 - [x] `supabase init`, core migration, seed, `docs/supabase-local.md`
-- [ ] Run `supabase start` + `supabase db reset` on your machine (Docker)
+- [x] Run `supabase start` + migrations/seed on your machine (Docker)
 
 ## Task 4 — Design system and shell
 
