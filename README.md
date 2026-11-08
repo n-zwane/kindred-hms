@@ -62,3 +62,4 @@ See [`docs/ROADMAP.md`](./docs/ROADMAP.md) for current progress.
 - [Architecture](./docs/architecture.md)  
 - [Figma inventory](./docs/figma-inventory.md)  
 - [Roadmap](./docs/ROADMAP.md)  
+- [3-minute demo script](./docs/demo-script-3min.md)  
