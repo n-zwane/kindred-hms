@@ -184,7 +184,7 @@ export function AddDoctorDrawer({
                   </button>
                 ))}
               </div>
-              <input type="hidden" {...register('day_of_week')} />
+              <input type="hidden" {...register('day_of_week', { valueAsNumber: true })} />
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <Label htmlFor="doctor-start">From</Label>

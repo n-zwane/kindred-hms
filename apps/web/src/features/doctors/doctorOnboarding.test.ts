@@ -8,13 +8,13 @@ const valid = {
   email: 'nomsa.dlamini@clinic.test',
   phone: '0210000000',
   bio: '',
-  day_of_week: '1',
+  day_of_week: 1,
   start_time: '09:00',
   end_time: '17:00',
 }
 
 describe('doctorOnboardingSchema', () => {
-  it('coerces weekday from a form string so the receptionist form can submit', () => {
+  it('accepts a numeric weekday from the receptionist form', () => {
     const parsed = doctorOnboardingSchema.parse(valid)
     expect(parsed.day_of_week).toBe(1)
   })

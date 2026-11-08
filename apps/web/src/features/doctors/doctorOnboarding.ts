@@ -24,7 +24,7 @@ export const doctorOnboardingSchema = z
     email: z.string().trim().email('Enter a valid email'),
     phone: z.string().optional(),
     bio: z.string().optional(),
-    day_of_week: z.coerce.number().int().min(0).max(6),
+    day_of_week: z.number().int().min(0).max(6),
     start_time: z.string().min(1, 'Choose a start time'),
     end_time: z.string().min(1, 'Choose an end time'),
   })
